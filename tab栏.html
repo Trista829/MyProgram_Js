@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab栏切换</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .box {
+            width: 400px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+
+        .box .hd {
+            height: 45px;
+        }
+
+        .box .hd span {
+            width: 90px;
+            display: inline-block;
+            background-color: pink;
+            line-height: 45px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .box .hd span.current {
+            background-color: purple;
+        }
+
+        .box .bd li {
+            height: 255px;
+            display: none;
+            background-color: purple;
+        }
+
+        .box .bd li.current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="hd">
+            <span class="current">第一个</span>
+            <span>第二个</span>
+            <span>第三个</span>
+            <span>第四个</span>
+        </div>
+        <div class="bd">
+            <li class="current">第一个里面的内容</li>
+            <li>第二个里面的内容</li>
+            <li>第三个里面的内容</li>
+            <li>第四个里面的内容</li>
+        </div>
+    </div>
+    <script>
+        var box = document.getElementById("box");
+        var hd = box.getElementsByTagName("div")[0];
+        var bd = box.getElementsByTagName("div")[1];
+        var spans = hd.getElementsByTagName("span");
+        var list = bd.getElementsByTagName("li");
+        // 循环获取每个span标签
+        for (var i = 0; i < spans.length; i++) {
+            // 为span标签设置index属性获取每个下标
+            spans[i].setAttribute("index", i);
+            // 为每个标签注册点击事件
+            spans[i].onclick = function () {
+
+                /******hd*******/
+                // 第一步：清除所有span标签的样式
+                for (var j = 0; j < spans.length; j++) {
+                    spans[j].removeAttribute("class");
+                }
+                // 第二步：为当前span标签添加current类样式
+                this.className = "current";
+
+                // 获取当前点击的index值，hd与bd连接的桥梁!!!!
+                var index = this.getAttribute("index");
+
+                /******bd*******/
+                // 第一步:清除所以li标签的样式
+                for (var k = 0; k < list.length; k++) {
+                    list[k].removeAttribute("class");
+                }
+                // 根据hd中的index改变当前li的类样式
+                list[index].className = "current";
+            };
+        }
+    </script>
+</body>
+
+</html>

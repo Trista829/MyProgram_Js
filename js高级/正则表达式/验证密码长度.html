@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #dv {
+            width: 300px;
+            height: 200px;
+            position: absolute;
+            left: 300px;
+            top: 100px;
+        }
+
+        .strengthLv0 {
+            height: 6px;
+            width: 120px;
+            border: 1px solid #ccc;
+            padding: 2px;
+        }
+
+        .strengthLv1 {
+            height: 6px;
+            width: 40px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            background-color: red;
+        }
+
+        .strengthLv2 {
+            height: 6px;
+            width: 80px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            background-color: yellow;
+        }
+
+        .strengthLv3 {
+            height: 6px;
+            width: 120px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dv">
+        <label for="pwd">密码：</label>
+        <input type="password" name="" id="pwd" maxlength="16">
+        <div>
+            <em>密码强度：</em>
+            <!-- <em id="strength"></em> -->
+            <div id="strengthLevel" class="strengthLv0"></div>
+        </div>
+    </div>
+    <script>
+        var pwd = document.getElementById("pwd");
+        var strengthlvl = document.getElementById("strengthLevel");
+        pwd.onkeyup = function () {
+            if (this.value.length >= 6) {
+                var lvl = getLvl(this.value);
+                strengthlvl.className = "strengthLv" + lvl;
+
+            }else{
+                strengthlvl.className = "strengthLv0";
+            }
+        };
+
+        function getLvl(password) {
+            var lvl = 0;
+            if (/[0-9]/.test(password)) {
+                lvl++;
+            }
+            if (/[a-zA-Z]/.test(password)) {
+                lvl++;
+            }
+            if (/[^0-9a-zA-Z_]/.test(password)) {
+                lvl++;
+            }
+            return lvl;
+        }
+    </script>
+</body>
+
+</html>

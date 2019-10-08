@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 求1+2+3+4+5
+        function getSum(x){
+            if(x==1){
+                return 1;
+            }
+                return x+getSum(x-1);
+        }
+        console.log(getSum(5));
+
+        // 求一个数字各个位数上的数字和
+        function getEverySum(x){
+            if(x<10){
+                return x;
+            }
+            return x%10+getEverySum(parseInt(x/10));
+        }
+        console.log(getEverySum(12));
+
+        // 求斐波那契数列
+        function fib(x){
+            if(x==1||x==2){
+                return 1;
+            }
+            return fib(x-1)+fib(x-2);
+        }
+        console.log(fib(5));
+    </script>
+</body>
+</html>

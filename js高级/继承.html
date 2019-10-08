@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 原型的作用：1、数据共享，节省内存空间    2、继承，节省内存空间
+
+        // 第一种：原型继承，改变原型的指向
+        // function Person(name,age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Person.prototype.eat = function(){
+        //     console.log("我要吃饭了");
+        // };
+        // function Student(score){
+        //     this.score = score;
+        // }
+        // Student.prototype = new Person("ljt",18);
+        // Student.prototype.study = function(){
+        //     console.log("学习使我快乐");
+        // };
+        // var stu = new Student("100");
+        // console.log(stu.name,stu.age,stu.score);
+        // stu.eat();
+        // stu.study();
+
+        // // 第二种，借用构造函数继承：可以改变继承属性的值，但不能继承父级的方法！！！
+        // function Person(name,age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Person.prototype.eat = function(){
+        //     console.log("我要吃饭了");
+        // };
+        // function Student(name,age,score){
+        //     // 借用构造函数,this表示当前对象，后面的为属性，需要同时给Student加上这些属性
+        //     Person.call(this,name,age);
+        //     this.score = score;
+        // }
+        // Student.prototype.study = function(){
+        //     console.log("学习使我快乐");
+        // };
+        // var stu = new Student("ljt",19,"100");
+        // console.log(stu.name,stu.age,stu.score);
+        // // stu.eat();  ---此方法不能继承调用
+        // stu.study();
+
+        // // 第三种：组合继承 = 原型继承 + 借用构造函数
+        // function Person(name,age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Person.prototype.eat = function(){
+        //     console.log("我要吃饭了");
+        // };
+        // function Student(name,age,score){
+        //     // 借用构造函数,this表示当前对象，后面的为属性，需要同时给Student加上这些属性
+        //     Person.call(this,name,age);
+        //     this.score = score;
+        // }
+        // Student.prototype = new Person();//不传参
+        // Student.prototype.study = function(){
+        //     console.log("学习使我快乐");
+        // };
+        // var stu = new Student("ljt",20,"100");
+        // console.log(stu.name,stu.age,stu.score);
+        // stu.eat(); 
+        // stu.study();
+
+
+        // 拷贝继承：把对象中需要共享的属性或方法，直接for in遍历的方式复制到另一个对象中
+        // 11
+        // var obj1 = {
+        //     name: "ljt",
+        //     age: 21,
+        //     eat: function () {
+        //         console.log("吃东西")
+        //     }
+        // };
+        // var obj2 = obj1;
+        // console.log(obj2);
+        // obj2.eat();
+        // 22
+        // var obj1 = {
+        //     name: "ljt",
+        //     age: 21,
+        //     eat: function () {
+        //         console.log("吃东西")
+        //     }
+        // };
+        // var obj2 = {};
+        // for(var key in obj1){
+        //     obj2[key] = obj1[key];
+        // }
+        // console.log(obj2);
+        // obj2.eat();
+        // 33
+        function Person(){
+
+        }
+        Person.prototype.name = "ljt";
+        Person.prototype.age = 22;
+        Person.prototype.eat = function(){
+            console.log("吃东西");
+        };
+        var obj2 = {};
+        for(var key in Person.prototype){
+            obj2[key] = Person.prototype[key];
+        }
+        console.log(obj2);
+        obj2.eat();
+    </script>
+</body>
+
+</html>

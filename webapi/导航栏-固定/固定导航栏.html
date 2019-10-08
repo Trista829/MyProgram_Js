@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        .main {
+            margin: 0 auto;
+            width: 1000px;
+            margin-top: 10px;
+
+        }
+
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top" id="topPart">
+        <img src="images/top.png" alt="" />
+    </div>
+    <div class="nav" id="navBar">
+        <img src="images/nav.png" alt="" />
+    </div>
+    <div class="main" id="mainPart">
+        <img src="images/main.png" alt="" />
+    </div>
+    <script src="../../common.js"></script>
+    <script>
+        window.onscroll = function(){
+            if(getScroll().top>=my$("topPart").offsetHeight){
+                my$("navBar").className = "nav fixed";
+                my$("mainPart").style.marginTop = my$("navBar").offsetHeight+"px";
+            }else{
+                my$("navBar").className = "nav";
+                my$("mainPart").style.marginTop = "10px";
+            }
+        }
+    </script>
+</body>
+
+</html>

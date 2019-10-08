@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <table id="table" border="1">
+        <tbody id="tbody">
+            <tr>
+                <td>猪猪：</td>
+                <td>我喜欢瑾婷</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        昵称：<input type="text" id="userName"><br />
+        <textarea name="" id="tt" cols="30" rows="10"></textarea>
+        <br/>
+        <input type="button" value="评论一下" id="btn">
+    </div>
+    <script>
+        // 获取按钮
+        var btn = document.getElementById("btn");
+
+        // 点击按钮，创建行，获取昵称添加到第一列，获取文本添加到第二列
+        btn.onclick = function () {
+            // 获取昵称
+            var userName = document.getElementById("userName");
+            // 获取文本
+            var text = document.getElementById("tt");
+            // 创建行
+            var tr = document.createElement("tr");
+            document.getElementById("tbody").appendChild(tr);
+            // 创建第一列
+            var td1 = document.createElement("td");
+            tr.appendChild(td1);
+            // 创建第二列
+            var td2 = document.createElement("td");
+            tr.appendChild(td2);
+
+            td1.innerHTML = userName.value+":";
+            td2.innerHTML = text.value;
+
+            // 清空
+            userName.value = "";
+            text.value = "";
+
+        };
+    </script>
+</body>
+
+</html>

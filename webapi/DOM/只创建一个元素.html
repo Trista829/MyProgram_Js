@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+  <style>
+    div{
+      width: 200px;
+      height: 200px;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+<input type="button" value="显示效果" id="btn"/>
+<div id="dv"></div>
+<script src="../../common.js"></script>
+<script>
+  //有则删除,无则创建
+
+
+//先判断有没有,有就删除,然后再创建
+//  my$("btn").onclick=function () {
+//    //判断,div中有没有这个按钮,有就删除
+//    //判断这个按钮的子元素是否存在
+//    if(my$("btn2")){//如果为true就有
+//      my$("dv").removeChild(my$("btn2"));
+//    }
+//    var obj=document.createElement("input");
+//    obj.type="button";
+//    obj.value="按钮";
+//    obj.id="btn2";
+//    my$("dv").appendChild(obj);
+//  };
+
+
+  my$("btn").onclick=function () {
+    //判断,div中有没有这个按钮,有就删除
+    //判断这个按钮的子元素是否存在
+    if(!my$("btn2")){//如果为true就有
+      var obj=document.createElement("input");
+      obj.type="button";
+      obj.value="按钮";
+      obj.id="btn2";
+      my$("dv").appendChild(obj);
+    }
+
+  };
+
+
+</script>
+</body>
+</html>

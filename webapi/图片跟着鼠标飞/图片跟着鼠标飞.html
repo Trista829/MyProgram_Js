@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            height: 2400px;
+        }
+        img{
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <img src="images/bird.png" alt="" id="bird">
+    <script src="../../common.js"></script>
+    <script>
+        // IE8中没有e这个对象即不能调用clientX/Y,scrollX/Y方法，要用window.event代替
+        document.onmousemove = function (e) {
+            e=window.event||e;  //兼容代码
+            my$("bird").style.left = e.clientX+getScroll().left + "px";
+            my$("bird").style.top = e.clientY+getScroll().top + "px";
+        };
+    </script>
+</body>
+
+</html>

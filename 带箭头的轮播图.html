@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>带箭头的轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        .box {
+            width: 730px;
+            height: 454px;
+            margin: 0 auto;
+            padding: 5px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .inner {
+            width: 730px;
+            height: 454px;
+            background-color: pink;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .inner ul {
+            width: 1000%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .inner li {
+            float: left;
+        }
+
+        .inner ol {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .inner ol li {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: #fff;
+            margin-left: 5px;
+            text-align: center;
+            line-height: 16px;
+            cursor: pointer;
+        }
+
+        .inner ol li.current {
+            background-color: orangered;
+            color: #fff;
+        }
+
+        #focusD {
+            display: hidden;
+        }
+
+        #focusD span {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            margin-top: -20px;
+            background: #000;
+            cursor: pointer;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-family: '黑体';
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.3;
+            border: 1px solid #fff;
+        }
+
+        #focusD #right {
+            right: 5px;
+            left: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="inner">
+            <!--相框-->
+            <ul>
+                <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/2.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/4.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/5.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/6.jpg" alt=""></a></li>
+            </ul>
+            <ol>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+            </ol>
+        </div>
+        <div id="focusD">
+            <span id="left">&lt;</span>
+            <span id="right">&gt;</span>
+        </div>
+    </div>
+    <script src="common.js"></script>
+    <!-- <script>
+        // 获取元素
+        var box = my$("box");
+        var inner = box.children[0];
+        var imgWidth = inner.offsetWidth;
+        var ulObj = inner.children[0];
+        // 获取图片
+        // var uliObjs = ulObj.children;
+        var olObj = inner.children[1];
+        // 获取下标点
+        var oliObj = olObj.children;
+        // 循环遍历所有的ol中li标签，为鼠标注册进入事件
+        for (var i = 0; i < oliObj.length; i++) {
+            // 为ol中li自定义属性index
+            oliObj[i].setAttribute("index", i);
+            // 注册鼠标进入事件
+            oliObj[i].onmouseover = function () {
+                // 消除所有点背景颜色
+                for (var j = 0; j < oliObj.length; j++) {
+                    oliObj[j].removeAttribute("class");
+                }
+                this.className = "current";
+                var index = this.getAttribute("index");
+                animate(ulObj, -index * imgWidth);
+            };
+        }
+    </script> -->
+    <script>
+        // 获取盒子box
+        var box = my$("box");
+        // 获取相框
+        var inner = box.children[0];
+        // 获取图片宽度
+        var imgWidth = inner.offsetWidth;
+        // 获取ul
+        var ulObj = inner.children[0];
+        // 获取左右焦点div
+        var focusD = my$("focusD");
+
+        // 显示隐藏左右焦点
+        box.onmouseover = function(){
+            focusD.style.display = "block";
+        };
+        box.onmouseout = function(){
+            focusD.style.display = "none";
+        };
+
+        // 点击右边按钮
+        var index = 0;
+        my$("right").onclick = function(){
+            if(index<ulObj.children.length-1){
+                index++;
+                animate(ulObj,-index*imgWidth);
+            }
+        };
+        // 点击左边按钮
+        my$("left").onclick = function(){
+            if(index>0){
+                index--;
+                animate(ulObj,index*imgWidth);
+            }
+        };
+    </script>
+</body>
+
+</html>

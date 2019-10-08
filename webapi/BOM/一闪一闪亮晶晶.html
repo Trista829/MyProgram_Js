@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 600px;
+            height: 600px;
+            border: 2px solid yellow;
+            background-color: white;
+            position: relative;
+        }
+
+        span {
+            font-size: 50px;
+            color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="亮起来" id="btn" />
+    <input type="button" value="停止按钮" id="stopbtn" />
+    <div id="dv"></div>
+    <script src="../../common.js"></script>
+    <script>
+        var timeId = "";
+        my$("btn").onclick = function () {
+            clearInterval(timeId);
+            timeId = setInterval(function () {
+                my$("dv").innerHTML = "<span>❤</span>";
+                var x = parseInt(Math.random() * 600 + 1);
+                var y = parseInt(Math.random() * 600 + 1);
+                my$("dv").firstElementChild.style.left = x + "px";
+                my$("dv").firstElementChild.style.top = y + "px";
+            }, 50);
+        }
+        my$("stopbtn").onclick = function () {
+            clearInterval(timeId);
+        }
+    </script>
+</body>
+
+</html>

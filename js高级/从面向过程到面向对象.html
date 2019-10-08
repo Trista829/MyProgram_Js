@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 300px;
+            height: 200px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="点击变色" id="btn"><br />
+    <div id="dv"></div>
+    <script>
+        // 点击按钮div变颜色
+        // 面向过程
+        // document.getElementById("btn").onclick = function(){
+        //     document.getElementById("dv").style.backgroundColor = "yellow";
+        // };
+
+        // 面向对象--初级
+        // function ChangeStyle(btnId,dvId,color){
+        //     this.btnObj = document.getElementById("btn");
+        //     this.dvObj = document.getElementById("dv");
+        //     this.color = color;
+        // }
+        // ChangeStyle.prototype.init = function(){
+        //     var that = this;
+        //     this.btnObj.onclick = function(){
+        //         that.dvObj.style.backgroundColor = that.color;
+        //     };
+        // };
+        // var cs = new ChangeStyle("btn","dv","yellow");
+        // cs.init();
+
+        // 面向对象--高级,可以改变任意对象的多个属性
+        var btn = document.getElementById("btn");
+        var dv = document.getElementById("dv");
+
+        function ChangeStyle(btnObj, dvObj, json) {
+            this.btnObj = btnObj;
+            this.dvObj = dvObj;
+            this.json = json;
+        }
+        ChangeStyle.prototype.init = function () {
+            var that = this;
+            // 点击按钮改变div多个属性
+            this.btnObj.onclick = function () {
+                for (var key in that.json) {
+                    that.dvObj.style[key] = that.json[key];
+                }
+            };
+        };
+        var json = {
+            "width": "500px",
+            "height": "700px",
+            "backgroundColor": "yellow",
+            "opacity": "0.4"
+        };
+        var cs = new ChangeStyle(btn, dv, json);
+        cs.init();
+    </script>
+</body>
+
+</html>

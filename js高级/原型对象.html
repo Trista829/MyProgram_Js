@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 初级写法
+        // function Person(name, age, sex) {
+        //     this.name = name;
+        //     this.age = age;
+        //     this.sex = sex;
+        // }
+        // Person.prototype.height = "155";
+        // Person.prototype.eat = function () {
+        //     console.log("我要吃西瓜");
+        // };
+        // var per = new Person("ljt", 18, "女");
+        // console.dir(Person);
+        // console.log(per);
+
+        // 简单的原型语法----不要忘记在原型对象中手动添加构造器指向构造函数！！！
+        // function Person(name, age, sex) {
+        //     this.name = name;
+        //     this.age = age;
+        //     this.sex = sex;
+        // }
+        // Person.prototype = {
+        //     // 手动添加构造器
+        //     constructor:Person,
+        //     height:"155",
+        //     eat:function(){
+        //         console.log("我要吃西瓜");
+        //     }
+        // };
+        // var per = new Person("ljg",18,"女");
+        // per.eat();
+        // console.dir(per);
+        // console.dir(Person);
+
+        // 原型对象中方法调用方法
+        function Animal(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Animal.prototype.eat = function () {
+            console.log("我要吃西瓜");
+            this.sleep();
+        };
+        Animal.prototype.sleep = function () {
+            console.log("睡着啦");
+        };
+        var per = new Animal("ljk",3);
+        per.eat();
+
+    </script>
+</body>
+
+</html>

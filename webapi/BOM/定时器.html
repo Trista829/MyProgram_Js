@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" value="停止" id="btn">
+    <script>
+        // 常用的，反复执行的定时器setInterval
+        var timeId = setInterval(function () {
+            alert("hello world!");
+        }, 1000);
+        document.getElementById("btn").onclick = function () {
+            clearInterval(timeId);
+        };
+
+        // 一次性的定时器
+        var timeId2 = setTimeout(function() {
+            alert("hello world!");
+        }, 1000);
+        document.getElementById("btn").onclick = function () {
+            clearTimeout(timeId2);
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>完整轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        .box {
+            width: 730px;
+            height: 454px;
+            margin: 0 auto;
+            padding: 5px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .inner {
+            width: 730px;
+            height: 454px;
+            background-color: pink;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .inner ul {
+            width: 1000%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .inner li {
+            float: left;
+        }
+
+        .inner ol {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .inner ol li {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: #fff;
+            margin-left: 5px;
+            text-align: center;
+            line-height: 16px;
+            cursor: pointer;
+        }
+
+        .inner ol li.current {
+            background-color: orangered;
+            color: #fff;
+        }
+
+        #focusD {
+            display: none;
+        }
+
+        #focusD span {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            margin-top: -20px;
+            background: #000;
+            cursor: pointer;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+            font-family: '黑体';
+            font-size: 30px;
+            color: #fff;
+            opacity: 0.3;
+            border: 1px solid #fff;
+        }
+
+        #focusD #right {
+            right: 5px;
+            left: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+        <div class="inner">
+            <!--相框-->
+            <ul>
+                <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/2.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/4.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/5.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/6.jpg" alt=""></a></li>
+            </ul>
+            <ol>
+                <!-- <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li> -->
+                <!-- js完成li的创建 -->
+            </ol>
+        </div>
+        <div id="focusD">
+            <span id="left">&lt;</span>
+            <span id="right">&gt;</span>
+        </div>
+    </div>
+    <script src="common.js"></script>
+    <script>
+        // 获取盒子box
+        var box = my$("box");
+        // 获取相框
+        var inner = box.children[0];
+        // 获取图片宽度
+        var imgWidth = inner.offsetWidth;
+        // 获取ul
+        var ulObj = inner.children[0];
+        // 获取ul中li
+        var ulList = ulObj.children;
+        // 获取ol
+        var olObj = inner.children[1];
+        // 获取左右焦点div
+        var focusD = my$("focusD");
+        // 全局变量
+        var pic = 0;
+
+        // 显示隐藏左右焦点
+        box.onmouseover = function () {
+            focusD.style.display = "block";
+            clearInterval(timeId);
+        };
+        box.onmouseout = function () {
+            focusD.style.display = "none";
+            timeId = setInterval(clickHandle, 1000);
+        };
+
+        // 创建小标点
+        for (var i = 0; i < ulList.length; i++) {
+            // 创建ol中li元素
+            var olList = document.createElement("li");
+            olObj.appendChild(olList);
+            olList.innerHTML = (i + 1);
+            // 为olList添加自定义属性index===》相当于获取了olList的index
+            olList.setAttribute("index", i);
+            // 注册鼠标进入事件
+            olList.onmouseover = function () {
+                // 消除所有点背景颜色
+                for (var j = 0; j < olObj.children.length; j++) {
+                    olObj.children[j].removeAttribute("class");
+                }
+                this.className = "current";
+                // 把index值赋值给当前===》知道当前位置
+                pic = this.getAttribute("index");
+                // 要操作的元素&目标位置
+                shiftingAnimate(ulObj, -pic * imgWidth);
+            };
+        }
+
+        // 设置ol中第一个li有背景颜色
+        olObj.children[0].className = "current";
+
+        // 无缝轮播，第一个和最后一个图片为同一张图片
+        // 克隆ul中第一个li，加到ul最后面  ---  无缝轮播
+        ulObj.appendChild(ulObj.children[0].cloneNode(true));
+        // 自动播放
+        var timeId = setInterval(clickHandle, 1000);
+
+        // 点击右边按钮
+        my$("right").onclick = clickHandle;
+        function clickHandle() {
+            // 到了最后一张图，则跳回第一张
+            if (pic == ulList.length - 1) {
+                pic = 0;
+                ulObj.style.left = 0 + "px";
+            }
+            // 下标加一，继续下一张
+            pic++;
+            shiftingAnimate(ulObj, -pic * imgWidth);
+            if (pic == ulList.length - 1) {
+                olObj.children[olObj.children.length - 1].className = "";
+                olObj.children[0].className = "current";
+            } else {
+                for (var i = 0; i < olObj.children.length; i++) {
+                    olObj.children[i].removeAttribute("class");
+                }
+                olObj.children[pic].className = "current";
+            }
+        }
+
+
+
+        // 点击左边按钮
+        my$("left").onclick = function () {
+            if (pic == 0) {
+                pic = ulList.length;
+                ulObj.style.left = -pic * imgWidth + "px";
+            }
+            pic--;
+            shiftingAnimate(ulObj, -pic * imgWidth);
+            //设置小按钮的颜色---所有的小按钮干掉颜色
+            for (var i = 0; i < olObj.children.length; i++) {
+                olObj.children[i].removeAttribute("class");
+            }
+            //当前的pic索引对应的按钮设置颜色
+            olObj.children[pic].className = "current";
+        };
+    </script>
+</body>
+
+</html>
